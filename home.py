@@ -6,13 +6,16 @@ win = tk.Tk()
 win.resizable(False, False)
 win.title("Simple Calculator")
 
+# a boolean which marks that an expression has been evaluated
+expression_evaluated = False
+
 # Expression Label Frame
 # TODO remove the line created by label frame
 input_frame = ttk.LabelFrame(win, text='')
 input_frame.grid(row=0, column=0, columnspan=2)
 
 # TODO find a way to increase height of textbox
-expression_str = tk.StringVar(value='3+4')
+expression_str = tk.StringVar(value='0')
 expression_box = ttk.Entry(input_frame, width=50, textvariable=expression_str, state='readonly')
 expression_box.grid(row=0, column=0)
 
@@ -27,10 +30,15 @@ def _on_press_number(number):
     :param number: the button that has been pressed
     :return:
     """
-    # TODO requires the logic for button press
+    if expression_evaluated:
+        _on_press_ac()
+
     s = expression_str.get()
-    s += str(number)
-    expression_str.set(s)
+    if s == '0':
+        expression_str.set(str(number))
+    else:
+        s = s + str(number)
+        expression_str.set(s)
 
 
 def _on_press_backspace():
@@ -38,6 +46,10 @@ def _on_press_backspace():
     implements functionality for pressing backspace
     :return:
     '''
+    if expression_evaluated:
+        _on_press_ac()
+        return
+
     s = expression_str.get()
     if len(s) > 0:
         s = s[:-1]
@@ -88,6 +100,8 @@ def _on_press_ac():
     Clears all user input
     :return: (None)
     '''
+    global expression_evaluated
+    expression_evaluated = False
     expression_str.set('0')
 
 
@@ -108,15 +122,16 @@ def _on_press_divide():
 
 
 def _on_press_equals():
+    global expression_evaluated
     s = expression_str.get()
     out = eval(s)
     expression_str.set(out)
+    expression_evaluated = True
 
 
 ac_button = tk.Button(operations_frame, text='AC', command=_on_press_ac)
 ac_button.grid(row=0, column=0, columnspan=2, sticky=tk.W + tk.E)
 ac_button.config(height=2, width=4)
-# ttk.Style().configure(ac_button, background='#006400')
 
 add_button = tk.Button(operations_frame, text='+', command=_on_press_add)
 add_button.config(height=2, width=4)
@@ -133,5 +148,8 @@ divide_button.grid(row=2, column=1)
 equals_button = tk.Button(operations_frame, text='=', command=_on_press_equals)
 equals_button.config(height=2, width=4)
 equals_button.grid(row=3, column=0, columnspan=2, sticky=tk.W + tk.E)
+
+# test case
+expression_str.set('7 + 5 / 4')
 
 win.mainloop()
