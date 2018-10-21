@@ -12,7 +12,7 @@ input_frame = ttk.LabelFrame(win, text='')
 input_frame.grid(row=0, column=0, columnspan=2)
 
 # TODO find a way to increase height of textbox
-expression_str = tk.StringVar()
+expression_str = tk.StringVar(value='0')
 expression_box = ttk.Entry(input_frame, width=50, textvariable=expression_str, state='readonly')
 expression_box.grid(row=0, column=0)
 
@@ -39,6 +39,8 @@ def _on_press_backspace():
     :return:
     '''
     s = expression_str.get()
+    if s == '0':
+        return
     if len(s) > 0:
         s = s[:-1]
     expression_str.set(s)
@@ -82,7 +84,11 @@ operations_frame.grid(row=1, column=1)
 
 
 def _on_press_ac():
-    pass
+    '''
+    Clears all user input
+    :return: (None)
+    '''
+    expression_str.set('0')
 
 
 def _on_press_add():
