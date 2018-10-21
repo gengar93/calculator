@@ -28,9 +28,15 @@ def _on_press_number(number):
     :return:
     """
     # TODO requires the logic for button press
-    current_exp_str = expression_str.get()
-    new_exp_str = current_exp_str + '{}'.format(number)
-    expression_str.set(new_exp_str)
+    pass
+
+
+def _on_press_backspace():
+    pass
+
+
+def _on_press_decimal():
+    pass
 
 
 num_buttons_dict = {}
@@ -43,5 +49,58 @@ for i in range(3):
 
         # add button the the dictionary
         num_buttons_dict[button_val] = button
+
+# add button zero
+button = ttk.Button(numbers_frame, text='0', command=functools.partial(_on_press_number, 0))
+button.grid(row=3, column=1)
+num_buttons_dict[0] = button
+
+# add backspace
+backspace_button = ttk.Button(numbers_frame, text='<<', command=_on_press_backspace)
+backspace_button.grid(row=3, column=2)
+
+# add decimal point button
+decimal_button = ttk.Button(numbers_frame, text='.', command=_on_press_decimal)
+decimal_button.grid(row=3, column=0)
+
+# operations frame
+operations_frame = ttk.LabelFrame(win, text='')
+operations_frame.grid(row=1, column=1)
+
+def _on_press_ac():
+    pass
+
+def _on_press_add():
+    pass
+
+
+def _on_press_subtract():
+    pass
+
+
+def _on_press_multiply():
+    pass
+
+
+def _on_press_divide():
+    pass
+
+def _on_press_equals():
+    pass
+
+ac_button = ttk.Button(operations_frame, text='AC', command=_on_press_ac)
+ac_button.grid(row=0, column=0, columnspan=2, sticky=tk.W+tk.E)
+#ttk.Style().configure(ac_button, background='#006400')
+
+add_button = ttk.Button(operations_frame, text='+', command=_on_press_add)
+add_button.grid(row=1, column=0)
+subtract_button = ttk.Button(operations_frame, text='-', command=_on_press_subtract)
+subtract_button.grid(row=1, column=1)
+multiply_button = ttk.Button(operations_frame, text='*', command=_on_press_multiply)
+multiply_button.grid(row=2, column=0)
+divide_button = ttk.Button(operations_frame, text='/', command=_on_press_divide)
+divide_button.grid(row=2, column=1)
+equals_button = ttk.Button(operations_frame, text='=', command=_on_press_equals)
+equals_button.grid(row=3, column=0, columnspan=2, sticky=tk.W+tk.E)
 
 win.mainloop()
