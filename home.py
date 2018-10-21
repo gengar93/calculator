@@ -12,7 +12,7 @@ input_frame = ttk.LabelFrame(win, text='')
 input_frame.grid(row=0, column=0, columnspan=2)
 
 # TODO find a way to increase height of textbox
-expression_str = tk.StringVar(value='0')
+expression_str = tk.StringVar(value='3+4')
 expression_box = ttk.Entry(input_frame, width=50, textvariable=expression_str, state='readonly')
 expression_box.grid(row=0, column=0)
 
@@ -39,11 +39,11 @@ def _on_press_backspace():
     :return:
     '''
     s = expression_str.get()
-    if s == '0':
-        return
     if len(s) > 0:
         s = s[:-1]
     expression_str.set(s)
+    if s == '':
+        expression_str.set('0')
 
 
 def _on_press_decimal():
@@ -108,7 +108,9 @@ def _on_press_divide():
 
 
 def _on_press_equals():
-    pass
+    s = expression_str.get()
+    out = eval(s)
+    expression_str.set(out)
 
 
 ac_button = tk.Button(operations_frame, text='AC', command=_on_press_ac)
