@@ -7,7 +7,7 @@ win.resizable(False, False)
 win.title("Simple Calculator")
 
 # Expression Label Frame
-# TODO remove tha line created by label frame
+# TODO remove the line created by label frame
 input_frame = ttk.LabelFrame(win, text='')
 input_frame.grid(row=0, column=0, columnspan=2)
 
@@ -28,11 +28,20 @@ def _on_press_number(number):
     :return:
     """
     # TODO requires the logic for button press
-    pass
+    s = expression_str.get()
+    s += str(number)
+    expression_str.set(s)
 
 
 def _on_press_backspace():
-    pass
+    '''
+    implements functionality for pressing backspace
+    :return:
+    '''
+    s = expression_str.get()
+    if len(s) > 0:
+        s = s[:-1]
+    expression_str.set(s)
 
 
 def _on_press_decimal():
