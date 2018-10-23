@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 import functools
+from menu_bar import MenuBar
 
 win = tk.Tk()
 win.resizable(False, False)
@@ -148,6 +149,9 @@ divide_button.grid(row=2, column=1)
 equals_button = tk.Button(operations_frame, text='=', command=_on_press_equals)
 equals_button.config(height=2, width=4)
 equals_button.grid(row=3, column=0, columnspan=2, sticky=tk.W + tk.E)
+
+# add a menu bar
+win.config(menu=MenuBar(win))
 
 # test case
 expression_str.set('7 + 5 / 4')
