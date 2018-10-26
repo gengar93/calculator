@@ -10,6 +10,9 @@ win.title("Simple Calculator")
 # a boolean which marks that an expression has been evaluated
 expression_evaluated = False
 
+# the last answer calculated is stored
+last_answer = None
+
 # Expression Label Frame
 # TODO remove the line created by label frame
 input_frame = ttk.LabelFrame(win, text='')
@@ -65,6 +68,7 @@ def _on_press_decimal():
 
 num_buttons_dict = {}
 
+# creates 1-9 number buttons in a 3x3 grid
 for i in range(3):
     for j in range(3):
         button_val = (2 - i) * 3 + j + 1
@@ -83,12 +87,12 @@ num_buttons_dict[0] = button
 
 # add backspace
 backspace_button = tk.Button(numbers_frame, text='<<', command=_on_press_backspace)
-backspace_button.grid(row=3, column=2, sticky=tk.W+tk.E)
+backspace_button.grid(row=3, column=2, sticky=tk.W + tk.E)
 backspace_button.config(height=2, width=4)
 
 # add decimal point button
 decimal_button = tk.Button(numbers_frame, text='.', command=_on_press_decimal)
-decimal_button.grid(row=3, column=0, sticky=tk.W+tk.E)
+decimal_button.grid(row=3, column=0, sticky=tk.W + tk.E)
 decimal_button.config(height=2, width=4)
 
 # operations frame
@@ -104,6 +108,30 @@ def _on_press_ac():
     global expression_evaluated
     expression_evaluated = False
     expression_str.set('0')
+
+
+def _on_press_ans():
+    """
+    Pressing this button causes the last value evaluated
+    to be printed in the expression bar.
+    If there is nothing in history, nothing happens.
+    :return: (None)
+    """
+    global last_answer
+    global expression_evaluated
+
+    if last_answer == None:
+        return
+
+    if expression_evaluated:
+        _on_press_ac()
+
+    s = expression_str.get()
+    if s == '0':
+        expression_str.set(last_answer)
+    else:
+        s += str(last_answer)
+        expression_str.set(s)
 
 
 def _on_press_add():
@@ -124,15 +152,21 @@ def _on_press_divide():
 
 def _on_press_equals():
     global expression_evaluated
+    global last_answer
     s = expression_str.get()
     out = eval(s)
     expression_str.set(out)
     expression_evaluated = True
+    last_answer = out
 
 
 ac_button = tk.Button(operations_frame, text='AC', command=_on_press_ac)
-ac_button.grid(row=0, column=0, columnspan=2, sticky=tk.W + tk.E)
+ac_button.grid(row=0, column=0, columnspan=1, sticky=tk.W + tk.E)
 ac_button.config(height=2, width=4)
+
+ans_button = tk.Button(operations_frame, text='Ans', command=_on_press_ans)
+ans_button.grid(row=0, column=1, columnspan=1, sticky=tk.EW)
+ans_button.config(height=2, width=4)
 
 add_button = tk.Button(operations_frame, text='+', command=_on_press_add)
 add_button.config(height=2, width=4)
