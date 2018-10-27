@@ -60,7 +60,17 @@ def _on_press_backspace():
 
 
 def _on_press_decimal():
-    pass
+    """
+    Determines what happens when the decimal button is pressed.
+    When pressed, a decimal point appears in the expression bar
+    :return: (None)
+    """
+    if expression_evaluated:
+        _on_press_ac()
+
+    s = expression_str.get()
+    s += '.'
+    expression_str.set(s)
 
 
 num_buttons_dict = {}
