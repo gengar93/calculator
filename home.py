@@ -114,6 +114,7 @@ def _on_press_ac():
     global expression_evaluated
     expression_evaluated = False
     expression_str.set('0')
+    expression_box.config(foreground='black')
 
 
 def _on_press_add():
@@ -175,7 +176,17 @@ def _on_press_divide():
 def _on_press_equals():
     global expression_evaluated
     s = expression_str.get()
-    out = eval(s)
+
+    try:
+        out = eval(s)
+        expression_box.config(foreground='black')
+    except SyntaxError:
+        out = 'Invalid Input'
+        expression_box.config(foreground='red')
+    except ZeroDivisionError:
+        out = 'Division by Zero'
+        expression_box.config(foreground='red')
+
     expression_str.set(out)
     expression_evaluated = True
 
@@ -204,6 +215,6 @@ equals_button.grid(row=3, column=0, columnspan=2, sticky=tk.W + tk.E)
 win.config(menu=MenuBar(win))
 
 # test case
-expression_str.set('7 + 5 / 4')
+expression_str.set('0')
 
 win.mainloop()
