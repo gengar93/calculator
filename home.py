@@ -46,10 +46,10 @@ def _on_press_number(number):
 
 
 def _on_press_backspace():
-    '''
+    """
     implements functionality for pressing backspace
     :return:
-    '''
+    """
     if expression_evaluated:
         _on_press_ac()
         return
@@ -63,7 +63,17 @@ def _on_press_backspace():
 
 
 def _on_press_decimal():
-    pass
+    """
+    Determines what happens when the decimal button is pressed.
+    When pressed, a decimal point appears in the expression bar
+    :return: (None)
+    """
+    if expression_evaluated:
+        _on_press_ac()
+
+    s = expression_str.get()
+    s += '.'
+    expression_str.set(s)
 
 
 num_buttons_dict = {}
@@ -101,13 +111,14 @@ operations_frame.grid(row=1, column=1)
 
 
 def _on_press_ac():
-    '''
+    """
     Clears all user input
     :return: (None)
-    '''
+    """
     global expression_evaluated
     expression_evaluated = False
     expression_str.set('0')
+    expression_box.config(foreground='black')
 
 
 def _on_press_ans():
@@ -135,26 +146,76 @@ def _on_press_ans():
 
 
 def _on_press_add():
-    pass
+    """
+    Determines what happens when add button is pressed.
+    When pressed, a plus sign appears in expression bar
+    :return: (None)
+    """
+    if expression_evaluated:
+        _on_press_ac()
+
+    s = expression_str.get()
+    s += '+'
+    expression_str.set(s)
 
 
 def _on_press_subtract():
-    pass
+    """
+    Determines what happens when the subtract button is pressed.
+    When pressed, a minus sign appears in the expression bar
+    :return: (None)
+    """
+    if expression_evaluated:
+        _on_press_ac()
+
+    s = expression_str.get()
+    s += '-'
+    expression_str.set(s)
 
 
 def _on_press_multiply():
-    pass
+    """
+    Determines what happens when the multiply button is pressed.
+    When pressed, a multiplication sign appears in the expression bar
+    :return: (None)
+    """
+    if expression_evaluated:
+        _on_press_ac()
+
+    s = expression_str.get()
+    s += '*'
+    expression_str.set(s)
 
 
 def _on_press_divide():
-    pass
+    """
+    Determines what happens when the division button is pressed.
+    When pressed, a divide sign appears in the expression bar
+    :return: (None)
+    """
+    if expression_evaluated:
+        _on_press_ac()
+
+    s = expression_str.get()
+    s += '/'
+    expression_str.set(s)
 
 
 def _on_press_equals():
     global expression_evaluated
     global last_answer
     s = expression_str.get()
-    out = eval(s)
+
+    try:
+        out = eval(s)
+        expression_box.config(foreground='black')
+    except SyntaxError:
+        out = 'Invalid Input'
+        expression_box.config(foreground='red')
+    except ZeroDivisionError:
+        out = 'Division by Zero'
+        expression_box.config(foreground='red')
+
     expression_str.set(out)
     expression_evaluated = True
     last_answer = out
@@ -188,6 +249,6 @@ equals_button.grid(row=3, column=0, columnspan=2, sticky=tk.W + tk.E)
 win.config(menu=MenuBar(win))
 
 # test case
-expression_str.set('7 + 5 / 4')
+expression_str.set('0')
 
 win.mainloop()
