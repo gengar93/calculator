@@ -7,10 +7,12 @@ win = tk.Tk()
 win.resizable(False, False)
 win.title("Simple Calculator")
 
-# a boolean which marks that an expression has been evaluated
+# marked true once equals has been pressed (and answer has been displayed)
+# when true, pressing most buttons causes a reset to 0 before performing button action
 expression_evaluated = False
 
 # the last answer calculated is stored
+# if there is was error in expression, the value is set to None again
 last_answer = None
 
 # Expression Label Frame
@@ -31,8 +33,10 @@ numbers_frame.grid(row=1, column=0)
 # create the numbers buttons
 def _on_press_number(number):
     """
-    :param number: the button that has been pressed
-    :return:
+    Adds the pressed number to the expression bar
+    When at 0 state, just replaces that state with the number
+    :param number: (int) the button that has been pressed
+    :return: (None)
     """
     if expression_evaluated:
         _on_press_ac()
@@ -47,7 +51,9 @@ def _on_press_number(number):
 
 def _on_press_backspace():
     """
-    implements functionality for pressing backspace
+    Implements functionality for pressing backspace
+    In most cases, simply removes the last character in the expression
+    If this causes the expression to become blank, resets to 0 state
     :return:
     """
     if expression_evaluated:
@@ -113,6 +119,7 @@ operations_frame.grid(row=1, column=1)
 def _on_press_ac():
     """
     Clears all user input
+    Also resets certain boolean flags back to defaults
     :return: (None)
     """
     global expression_evaluated
@@ -222,6 +229,11 @@ def _on_press_divide():
 
 
 def _on_press_equals():
+    """
+    Action performed upon pressing the equals button
+    Runs eval and displays the output. Error message displayed for bad input.
+    :return:
+    """
     global expression_evaluated
     global last_answer
     s = expression_str.get()
