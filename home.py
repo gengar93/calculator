@@ -18,12 +18,12 @@ last_answer = None
 # Expression Label Frame
 # TODO remove the line created by label frame
 input_frame = ttk.LabelFrame(win, text='')
-input_frame.grid(row=0, column=0, columnspan=2)
+input_frame.grid(row=0, column=0, columnspan=2, sticky=tk.W + tk.E)
 
 # TODO find a way to increase height of textbox
 expression_str = tk.StringVar(value='0')
-expression_box = ttk.Entry(input_frame, width=50, textvariable=expression_str, state='readonly')
-expression_box.grid(row=0, column=0)
+expression_box = ttk.Entry(input_frame, textvariable=expression_str, state='readonly', width=32)
+expression_box.grid(row=0, column=0, sticky=tk.EW)
 
 # Numbers Label Frame
 numbers_frame = ttk.LabelFrame(win, text='')
