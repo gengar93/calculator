@@ -151,11 +151,12 @@ def _on_press_add():
     When pressed, a plus sign appears in expression bar
     :return: (None)
     """
+    global expression_evaluated
+
     if expression_evaluated:
         if last_answer is None:
             _on_press_ac()
         else:
-            global expression_evaluated
             expression_evaluated = False
 
     s = expression_str.get()
@@ -169,11 +170,12 @@ def _on_press_subtract():
     When pressed, a minus sign appears in the expression bar
     :return: (None)
     """
+    global expression_evaluated
+
     if expression_evaluated:
         if last_answer is None:
             _on_press_ac()
         else:
-            global expression_evaluated
             expression_evaluated = False
 
     s = expression_str.get()
@@ -187,11 +189,12 @@ def _on_press_multiply():
     When pressed, a multiplication sign appears in the expression bar
     :return: (None)
     """
+    global expression_evaluated
+
     if expression_evaluated:
         if last_answer is None:
             _on_press_ac()
         else:
-            global expression_evaluated
             expression_evaluated = False
 
     s = expression_str.get()
@@ -205,11 +208,12 @@ def _on_press_divide():
     When pressed, a divide sign appears in the expression bar
     :return: (None)
     """
+    global expression_evaluated
+
     if expression_evaluated:
         if last_answer is None:
             _on_press_ac()
         else:
-            global expression_evaluated
             expression_evaluated = False
 
     s = expression_str.get()
@@ -229,9 +233,11 @@ def _on_press_equals():
     except SyntaxError:
         out = 'Invalid Input'
         expression_box.config(foreground='red')
+        last_answer = None
     except ZeroDivisionError:
         out = 'Division by Zero'
         expression_box.config(foreground='red')
+        last_answer = None
 
     expression_str.set(out)
     expression_evaluated = True
