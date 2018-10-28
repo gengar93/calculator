@@ -131,7 +131,7 @@ def _on_press_ans():
     global last_answer
     global expression_evaluated
 
-    if last_answer == None:
+    if last_answer is None:
         return
 
     if expression_evaluated:
@@ -152,7 +152,11 @@ def _on_press_add():
     :return: (None)
     """
     if expression_evaluated:
-        _on_press_ac()
+        if last_answer is None:
+            _on_press_ac()
+        else:
+            global expression_evaluated
+            expression_evaluated = False
 
     s = expression_str.get()
     s += '+'
@@ -166,7 +170,11 @@ def _on_press_subtract():
     :return: (None)
     """
     if expression_evaluated:
-        _on_press_ac()
+        if last_answer is None:
+            _on_press_ac()
+        else:
+            global expression_evaluated
+            expression_evaluated = False
 
     s = expression_str.get()
     s += '-'
@@ -180,7 +188,11 @@ def _on_press_multiply():
     :return: (None)
     """
     if expression_evaluated:
-        _on_press_ac()
+        if last_answer is None:
+            _on_press_ac()
+        else:
+            global expression_evaluated
+            expression_evaluated = False
 
     s = expression_str.get()
     s += '*'
@@ -194,7 +206,11 @@ def _on_press_divide():
     :return: (None)
     """
     if expression_evaluated:
-        _on_press_ac()
+        if last_answer is None:
+            _on_press_ac()
+        else:
+            global expression_evaluated
+            expression_evaluated = False
 
     s = expression_str.get()
     s += '/'
@@ -209,6 +225,7 @@ def _on_press_equals():
     try:
         out = eval(s)
         expression_box.config(foreground='black')
+        last_answer = out
     except SyntaxError:
         out = 'Invalid Input'
         expression_box.config(foreground='red')
@@ -218,7 +235,6 @@ def _on_press_equals():
 
     expression_str.set(out)
     expression_evaluated = True
-    last_answer = out
 
 
 ac_button = tk.Button(operations_frame, text='AC', command=_on_press_ac)
