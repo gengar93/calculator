@@ -1,7 +1,7 @@
 import tkinter as tk
-from tkinter import ttk
 import functools
 from menu_bar import MenuBar
+from custom_buttons import NumberButton, OperatorButton, SpecialButton
 
 win = tk.Tk()
 win.resizable(False, False)
@@ -89,20 +89,15 @@ num_buttons_dict = {}
 # creates 1-9 number buttons in a 3x3 grid
 for i in range(3):
     for j in range(3):
-        button_val = (2 - i) * 3 + j + 1
-        button = tk.Button(numbers_frame, text=button_val, command=functools.partial(_on_press_number, button_val))
-        button.config(height=2, width=4)
-        button.grid(row=i, column=j, sticky=tk.EW)
-        button.config(background='#99A62B', foreground='#F2FF80')
+        button_val = (2 - i) * 3 + j + 1  # to get numbers in the order you see on a calc
+        button = NumberButton(numbers_frame, text=button_val, command=functools.partial(_on_press_number, button_val),
+                              grid_placement=(i, j))
 
         # add button the the dictionary
         num_buttons_dict[button_val] = button
 
 # add button zero
-button = tk.Button(numbers_frame, text='0', command=functools.partial(_on_press_number, 0))
-button.grid(row=3, column=1, sticky=tk.W + tk.E)
-button.config(height=2, width=4)
-button.config(background='#99A62B', foreground='#F2FF80')
+button = NumberButton(numbers_frame, text='0', command=functools.partial(_on_press_number, 0), grid_placement=(3, 1))
 num_buttons_dict[0] = button
 
 # add backspace
