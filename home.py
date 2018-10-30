@@ -6,6 +6,7 @@ from menu_bar import MenuBar
 win = tk.Tk()
 win.resizable(False, False)
 win.title("Simple Calculator")
+win.config(background='#243313')
 
 # marked true once equals has been pressed (and answer has been displayed)
 # when true, pressing most buttons causes a reset to 0 before performing button action
@@ -17,17 +18,18 @@ last_answer = None
 
 # Expression Label Frame
 # TODO remove the line created by label frame
-input_frame = ttk.LabelFrame(win, text='')
-input_frame.grid(row=0, column=0, columnspan=2, sticky=tk.W + tk.E)
+input_frame = tk.LabelFrame(win, text='')
+input_frame.grid(row=0, column=0, columnspan=2, sticky=tk.W + tk.E, padx=5, pady=5)
 
 # TODO find a way to increase height of textbox
 expression_str = tk.StringVar(value='0')
-expression_box = ttk.Entry(input_frame, textvariable=expression_str, state='readonly', width=32)
+expression_box = tk.Entry(input_frame, textvariable=expression_str, state='readonly', width=34)
+expression_box.config(background='BLACK', foreground='#F2FF80')
 expression_box.grid(row=0, column=0, sticky=tk.EW)
 
 # Numbers Label Frame
-numbers_frame = ttk.LabelFrame(win, text='')
-numbers_frame.grid(row=1, column=0)
+numbers_frame = tk.LabelFrame(win, text='')
+numbers_frame.grid(row=1, column=0, padx=5, pady=5)
 
 
 # create the numbers buttons
@@ -91,6 +93,7 @@ for i in range(3):
         button = tk.Button(numbers_frame, text=button_val, command=functools.partial(_on_press_number, button_val))
         button.config(height=2, width=4)
         button.grid(row=i, column=j, sticky=tk.EW)
+        button.config(background='#99A62B', foreground='#F2FF80')
 
         # add button the the dictionary
         num_buttons_dict[button_val] = button
@@ -99,21 +102,24 @@ for i in range(3):
 button = tk.Button(numbers_frame, text='0', command=functools.partial(_on_press_number, 0))
 button.grid(row=3, column=1, sticky=tk.W + tk.E)
 button.config(height=2, width=4)
+button.config(background='#99A62B', foreground='#F2FF80')
 num_buttons_dict[0] = button
 
 # add backspace
 backspace_button = tk.Button(numbers_frame, text='<<', command=_on_press_backspace)
 backspace_button.grid(row=3, column=2, sticky=tk.W + tk.E)
 backspace_button.config(height=2, width=4)
+backspace_button.config(background='#5E661B', foreground='#F2FF80')
 
 # add decimal point button
 decimal_button = tk.Button(numbers_frame, text='.', command=_on_press_decimal)
 decimal_button.grid(row=3, column=0, sticky=tk.W + tk.E)
 decimal_button.config(height=2, width=4)
+decimal_button.config(background='#5E661B', foreground='#F2FF80')
 
 # operations frame
-operations_frame = ttk.LabelFrame(win, text='')
-operations_frame.grid(row=1, column=1)
+operations_frame = tk.LabelFrame(win, text='')
+operations_frame.grid(row=1, column=1, padx=5, pady=5)
 
 
 def _on_press_ac():
@@ -258,25 +264,32 @@ def _on_press_equals():
 ac_button = tk.Button(operations_frame, text='AC', command=_on_press_ac)
 ac_button.grid(row=0, column=0, columnspan=1, sticky=tk.W + tk.E)
 ac_button.config(height=2, width=4)
+ac_button.config(background='#163317', foreground='#F2FF80')
 
 ans_button = tk.Button(operations_frame, text='Ans', command=_on_press_ans)
 ans_button.grid(row=0, column=1, columnspan=1, sticky=tk.EW)
 ans_button.config(height=2, width=4)
+ans_button.config(background='#163317', foreground='#F2FF80')
 
 add_button = tk.Button(operations_frame, text='+', command=_on_press_add)
 add_button.config(height=2, width=4)
+add_button.config(background='#5E661B', foreground='#F2FF80')
 add_button.grid(row=1, column=0)
 subtract_button = tk.Button(operations_frame, text='-', command=_on_press_subtract)
 subtract_button.config(height=2, width=4)
+subtract_button.config(background='#5E661B', foreground='#F2FF80')
 subtract_button.grid(row=1, column=1)
 multiply_button = tk.Button(operations_frame, text='*', command=_on_press_multiply)
 multiply_button.config(height=2, width=4)
+multiply_button.config(background='#5E661B', foreground='#F2FF80')
 multiply_button.grid(row=2, column=0)
 divide_button = tk.Button(operations_frame, text='/', command=_on_press_divide)
 divide_button.config(height=2, width=4)
+divide_button.config(background='#5E661B', foreground='#F2FF80')
 divide_button.grid(row=2, column=1)
 equals_button = tk.Button(operations_frame, text='=', command=_on_press_equals)
 equals_button.config(height=2, width=4)
+equals_button.config(background='#163317', foreground='#F2FF80')
 equals_button.grid(row=3, column=0, columnspan=2, sticky=tk.W + tk.E)
 
 # add a menu bar
