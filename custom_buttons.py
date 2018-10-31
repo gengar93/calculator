@@ -5,7 +5,7 @@ from tkinter import Button
 class NumberButton(Button):
     def __init__(self, window, text, command=None, grid_placement=None, **kw):
         # call to Button super class init
-        super().__init__(window, text, **kw)
+        super().__init__(window, text=text, **kw)
 
         # setting command
         if command is not None:
@@ -25,7 +25,7 @@ class NumberButton(Button):
 class OperatorButton(Button):
     def __init__(self, window, text, command=None, grid_placement=None, **kw):
         # call to Button super class init
-        super().__init__(window, text, **kw)
+        super().__init__(window, text=text, **kw)
 
         # setting command
         if command is not None:
@@ -45,7 +45,7 @@ class OperatorButton(Button):
 class SpecialButton(Button):
     def __init__(self, window, text, command=None, grid_placement=None, **kw):
         # call to Button super class init
-        super().__init__(window, text, **kw)
+        super().__init__(window, text=text, **kw)
 
         # setting command
         if command is not None:
