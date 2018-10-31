@@ -16,7 +16,7 @@ class NumberButton(Button):
             self.grid(row=grid_placement[0], column=grid_placement[1], sticky=tk.EW)
 
         # colour configurations
-        self.config(background='#99A6AB', foreground='#F2FF80')
+        self.config(background='#99A62B', foreground='#F2FF80')
 
         # other config
         self.config(bd=1, height=2, width=4)

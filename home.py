@@ -24,7 +24,7 @@ input_frame.grid(row=0, column=0, columnspan=2, sticky=tk.W + tk.E, padx=5, pady
 # TODO find a way to increase height of textbox
 expression_str = tk.StringVar(value='0')
 expression_box = tk.Entry(input_frame, textvariable=expression_str, state='readonly', width=34)
-expression_box.config(background='BLACK', foreground='#F2FF80')
+expression_box.config(readonlybackground='BLACK', foreground='#F2FF80')
 expression_box.grid(row=0, column=0, sticky=tk.EW)
 
 # Numbers Label Frame
@@ -40,6 +40,7 @@ def _on_press_number(number):
     :param number: (int) the button that has been pressed
     :return: (None)
     """
+
     if expression_evaluated:
         _on_press_ac()
 
@@ -126,7 +127,7 @@ def _on_press_ac():
     global expression_evaluated
     expression_evaluated = False
     expression_str.set('0')
-    expression_box.config(foreground='black')
+    expression_box.config(foreground='#F2FF80')
 
 
 def _on_press_ans():
@@ -241,7 +242,6 @@ def _on_press_equals():
 
     try:
         out = eval(s)
-        expression_box.config(foreground='black')
         last_answer = out
     except SyntaxError:
         out = 'Invalid Input'
