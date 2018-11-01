@@ -102,16 +102,10 @@ button = NumberButton(numbers_frame, text='0', command=functools.partial(_on_pre
 num_buttons_dict[0] = button
 
 # add backspace
-backspace_button = tk.Button(numbers_frame, text='<<', command=_on_press_backspace)
-backspace_button.grid(row=3, column=2, sticky=tk.W + tk.E)
-backspace_button.config(height=2, width=4)
-backspace_button.config(background='#5E661B', foreground='#F2FF80')
+backspace_button = OperatorButton(numbers_frame, text='<<', command=_on_press_backspace, grid_placement=(3, 2))
 
 # add decimal point button
-decimal_button = tk.Button(numbers_frame, text='.', command=_on_press_decimal)
-decimal_button.grid(row=3, column=0, sticky=tk.W + tk.E)
-decimal_button.config(height=2, width=4)
-decimal_button.config(background='#5E661B', foreground='#F2FF80')
+decimal_button = OperatorButton(numbers_frame, text='.', command=_on_press_decimal, grid_placement=(3, 0))
 
 # operations frame
 operations_frame = tk.LabelFrame(win, text='')
@@ -266,22 +260,14 @@ ans_button.grid(row=0, column=1, columnspan=1, sticky=tk.EW)
 ans_button.config(height=2, width=4)
 ans_button.config(background='#163317', foreground='#F2FF80')
 
-add_button = tk.Button(operations_frame, text='+', command=_on_press_add)
-add_button.config(height=2, width=4)
-add_button.config(background='#5E661B', foreground='#F2FF80')
-add_button.grid(row=1, column=0)
-subtract_button = tk.Button(operations_frame, text='-', command=_on_press_subtract)
-subtract_button.config(height=2, width=4)
-subtract_button.config(background='#5E661B', foreground='#F2FF80')
-subtract_button.grid(row=1, column=1)
-multiply_button = tk.Button(operations_frame, text='*', command=_on_press_multiply)
-multiply_button.config(height=2, width=4)
-multiply_button.config(background='#5E661B', foreground='#F2FF80')
-multiply_button.grid(row=2, column=0)
-divide_button = tk.Button(operations_frame, text='/', command=_on_press_divide)
-divide_button.config(height=2, width=4)
-divide_button.config(background='#5E661B', foreground='#F2FF80')
-divide_button.grid(row=2, column=1)
+add_button = OperatorButton(operations_frame, text='+', command=_on_press_add, grid_placement=(1, 0))
+
+subtract_button = OperatorButton(operations_frame, text='-', command=_on_press_subtract, grid_placement=(1, 1))
+
+multiply_button = OperatorButton(operations_frame, text='*', command=_on_press_multiply, grid_placement=(2, 0))
+
+divide_button = OperatorButton(operations_frame, text='/', command=_on_press_divide, grid_placement=(2, 1))
+
 equals_button = tk.Button(operations_frame, text='=', command=_on_press_equals)
 equals_button.config(height=2, width=4)
 equals_button.config(background='#163317', foreground='#F2FF80')
