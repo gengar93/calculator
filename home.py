@@ -250,15 +250,9 @@ def _on_press_equals():
     expression_evaluated = True
 
 
-ac_button = tk.Button(operations_frame, text='AC', command=_on_press_ac)
-ac_button.grid(row=0, column=0, columnspan=1, sticky=tk.W + tk.E)
-ac_button.config(height=2, width=4)
-ac_button.config(background='#163317', foreground='#F2FF80')
+ac_button = SpecialButton(operations_frame, text='AC', command=_on_press_ac, grid_placement=(0, 0))
 
-ans_button = tk.Button(operations_frame, text='Ans', command=_on_press_ans)
-ans_button.grid(row=0, column=1, columnspan=1, sticky=tk.EW)
-ans_button.config(height=2, width=4)
-ans_button.config(background='#163317', foreground='#F2FF80')
+ans_button = SpecialButton(operations_frame, text='Ans', command=_on_press_ans, grid_placement=(0, 1))
 
 add_button = OperatorButton(operations_frame, text='+', command=_on_press_add, grid_placement=(1, 0))
 
@@ -268,10 +262,8 @@ multiply_button = OperatorButton(operations_frame, text='*', command=_on_press_m
 
 divide_button = OperatorButton(operations_frame, text='/', command=_on_press_divide, grid_placement=(2, 1))
 
-equals_button = tk.Button(operations_frame, text='=', command=_on_press_equals)
-equals_button.config(height=2, width=4)
-equals_button.config(background='#163317', foreground='#F2FF80')
-equals_button.grid(row=3, column=0, columnspan=2, sticky=tk.W + tk.E)
+equals_button = SpecialButton(operations_frame, text='=', command=_on_press_equals, grid_placement=(3, 0))
+equals_button.grid(columnspan=2, sticky=tk.W + tk.E)
 
 # add a menu bar
 win.config(menu=MenuBar(win))
