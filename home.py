@@ -33,7 +33,7 @@ numbers_frame.grid(row=1, column=0, padx=5, pady=5)
 
 
 # create the numbers buttons
-def _on_press_number(number):
+def _on_press_number(number, event=None):
     """
     Adds the pressed number to the expression bar
     When at 0 state, just replaces that state with the number
@@ -94,12 +94,16 @@ for i in range(3):
         button = NumberButton(numbers_frame, text=button_val, command=functools.partial(_on_press_number, button_val),
                               grid_placement=(i, j))
 
+        # bind keyboard key to button
+        win.bind(str(button_val), functools.partial(_on_press_number, button_val))
+
         # add button the the dictionary
         num_buttons_dict[button_val] = button
 
 # add button zero
 button = NumberButton(numbers_frame, text='0', command=functools.partial(_on_press_number, 0), grid_placement=(3, 1))
-num_buttons_dict[0] = button
+win.bind('0', functools.partial(_on_press_number, 0))  # bind to keyboard
+num_buttons_dict[0] = button  # add to buttons dictionary
 
 # add backspace
 backspace_button = OperatorButton(numbers_frame, text='<<', command=_on_press_backspace, grid_placement=(3, 2))
