@@ -52,7 +52,7 @@ def _on_press_number(number, event=None):
         expression_str.set(s)
 
 
-def _on_press_backspace():
+def _on_press_backspace(event=None):
     """
     Implements functionality for pressing backspace
     In most cases, simply removes the last character in the expression
@@ -71,7 +71,7 @@ def _on_press_backspace():
         expression_str.set('0')
 
 
-def _on_press_decimal():
+def _on_press_decimal(event=None):
     """
     Determines what happens when the decimal button is pressed.
     When pressed, a decimal point appears in the expression bar
@@ -107,9 +107,11 @@ num_buttons_dict[0] = button  # add to buttons dictionary
 
 # add backspace
 backspace_button = OperatorButton(numbers_frame, text='<<', command=_on_press_backspace, grid_placement=(3, 2))
+win.bind('<BackSpace>', _on_press_backspace)
 
 # add decimal point button
 decimal_button = OperatorButton(numbers_frame, text='.', command=_on_press_decimal, grid_placement=(3, 0))
+win.bind('.', _on_press_decimal)
 
 # operations frame
 operations_frame = tk.LabelFrame(win, text='')
@@ -152,7 +154,7 @@ def _on_press_ans():
         expression_str.set(s)
 
 
-def _on_press_add():
+def _on_press_add(event=None):
     """
     Determines what happens when add button is pressed.
     When pressed, a plus sign appears in expression bar
@@ -171,7 +173,7 @@ def _on_press_add():
     expression_str.set(s)
 
 
-def _on_press_subtract():
+def _on_press_subtract(event=None):
     """
     Determines what happens when the subtract button is pressed.
     When pressed, a minus sign appears in the expression bar
@@ -190,7 +192,7 @@ def _on_press_subtract():
     expression_str.set(s)
 
 
-def _on_press_multiply():
+def _on_press_multiply(event=None):
     """
     Determines what happens when the multiply button is pressed.
     When pressed, a multiplication sign appears in the expression bar
@@ -209,7 +211,7 @@ def _on_press_multiply():
     expression_str.set(s)
 
 
-def _on_press_divide():
+def _on_press_divide(event=None):
     """
     Determines what happens when the division button is pressed.
     When pressed, a divide sign appears in the expression bar
@@ -228,7 +230,7 @@ def _on_press_divide():
     expression_str.set(s)
 
 
-def _on_press_equals():
+def _on_press_equals(event=None):
     """
     Action performed upon pressing the equals button
     Runs eval and displays the output. Error message displayed for bad input.
@@ -259,15 +261,20 @@ ac_button = SpecialButton(operations_frame, text='AC', command=_on_press_ac, gri
 ans_button = SpecialButton(operations_frame, text='Ans', command=_on_press_ans, grid_placement=(0, 1))
 
 add_button = OperatorButton(operations_frame, text='+', command=_on_press_add, grid_placement=(1, 0))
+win.bind('+', _on_press_add)
 
 subtract_button = OperatorButton(operations_frame, text='-', command=_on_press_subtract, grid_placement=(1, 1))
+win.bind('-', _on_press_subtract)
 
 multiply_button = OperatorButton(operations_frame, text='*', command=_on_press_multiply, grid_placement=(2, 0))
+win.bind('*', _on_press_multiply)
 
 divide_button = OperatorButton(operations_frame, text='/', command=_on_press_divide, grid_placement=(2, 1))
+win.bind(r'/', _on_press_divide)
 
 equals_button = SpecialButton(operations_frame, text='=', command=_on_press_equals, grid_placement=(3, 0))
 equals_button.grid(columnspan=2, sticky=tk.W + tk.E)
+win.bind('<Enter>', _on_press_equals)
 
 # add a menu bar
 win.config(menu=MenuBar(win))
