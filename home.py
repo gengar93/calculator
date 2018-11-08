@@ -118,7 +118,7 @@ operations_frame = tk.LabelFrame(win, text='')
 operations_frame.grid(row=1, column=1, padx=5, pady=5)
 
 
-def _on_press_ac():
+def _on_press_ac(event=None):
     """
     Clears all user input
     Also resets certain boolean flags back to defaults
@@ -257,6 +257,7 @@ def _on_press_equals(event=None):
 
 
 ac_button = SpecialButton(operations_frame, text='AC', command=_on_press_ac, grid_placement=(0, 0))
+win.bind('<Escape>', functools.partial(_on_press_ac))
 
 ans_button = SpecialButton(operations_frame, text='Ans', command=_on_press_ans, grid_placement=(0, 1))
 
