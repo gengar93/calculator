@@ -274,7 +274,7 @@ win.bind(r'/', _on_press_divide)
 
 equals_button = SpecialButton(operations_frame, text='=', command=_on_press_equals, grid_placement=(3, 0))
 equals_button.grid(columnspan=2, sticky=tk.W + tk.E)
-win.bind('<Enter>', _on_press_equals)
+win.bind('<Return>', _on_press_equals)
 
 # add a menu bar
 win.config(menu=MenuBar(win))
